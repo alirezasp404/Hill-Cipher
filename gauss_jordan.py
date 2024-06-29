@@ -1,43 +1,52 @@
-def determinant_gauss_jordan(input_matrix):
-  
-  matrix_len = len(input_matrix)
-  if matrix_len != len(input_matrix[0]):
-    raise ValueError("Input matrix must be square.")
+import numpy as np
 
-  matrix = [[row[i] for i in range(matrix_len)] for row in input_matrix]
 
-  det = 1
-  for i in range(matrix_len):
-    # Partial pivoting (find largest absolute value in the current column below the diagonal)
-    pivot = i
-    for j in range(i + 1, matrix_len):
-      if abs(matrix[j][i]) > abs(matrix[pivot][i]):
-        pivot = j
+def determinant_gauss_jordan(matrix):
 
-    # Check for zero pivot
-    if abs(matrix[pivot][i]) < 1e-10:
-      return 0
+    if not isinstance(matrix, np.ndarray) or matrix.ndim != 2:
+        raise ValueError("Input matrix must be a 2D NumPy array.")
 
-    # Swap rows if necessary
-    if pivot != i:
-      matrix[i], matrix[pivot] = matrix[pivot], matrix[i]
-      det *= -1
+    n = matrix.shape[0]
+    if n != matrix.shape[1]:
+        raise ValueError("Input matrix must be square.")
+    
+    augmented_matrix = np.hstack((matrix, np.zeros((n, n))))
 
-    # Gauss-Jordan elimination
-    det *= matrix[i][i]
-    for j in range(i + 1, matrix_len):
-      factor = matrix[j][i] / matrix[i][i]
-      matrix[j][i] = 0  # Explicitly set pivot element to zero for clarity
-      for k in range(i + 1, matrix_len):
-        matrix[j][k] -= factor * matrix[i][k]
+    det = 1
+    for i in range(n):
+        # Pivot (largest absolute value in the current column below the diagonal)
+        pivot = i
+        for j in range(i + 1, n):
+            if abs(augmented_matrix[j, i]) > abs(augmented_matrix[pivot, i]):
+                pivot = j
 
-  return det
+        # Check for zero pivot 
+        if abs(augmented_matrix[pivot, i]) < 1e-10:
+            return 0
 
-matrix = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 8]
-]
+        # Swap rows if necessary
+        if pivot != i:
+            augmented_matrix[[i, pivot], :] = augmented_matrix[[pivot, i], :]
+            det *= -1
 
-result = determinant_gauss_jordan(matrix)
-print(f"Determinant of the matrix: {result}")
+        # Gauss-Jordan elimination
+        det *= augmented_matrix[i, i]
+        for j in range(i + 1, n):
+            factor = augmented_matrix[j, i] / augmented_matrix[i, i]
+            augmented_matrix[j, :] -= factor * augmented_matrix[i, :]
+
+    return det
+
+
+matrix = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 8]
+])
+
+determinant = determinant_gauss_jordan(matrix)
+
+print(f"The determinant calculated using gauss-jordan-elimination is: {determinant}")
+
+numpy_det = np.linalg.det(matrix)
+print(f"The determinant calculated using NumPy's function is: {numpy_det}")
