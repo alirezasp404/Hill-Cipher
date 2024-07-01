@@ -14,7 +14,6 @@ def encrypt_decrypt():
         if key=="" or text=="":
             messagebox.showinfo("error", "enter text and key")
         else:
-            print(text , key)
             tk.Label(window, text="", fg="white",pady=1).pack()
             tk.Label(window, text="decription text:",  fg="black", font="Times 15  bold",padx=20,pady=1).pack()
             tk.Label(window, text=hill_cipher.encrypt(text,key),  fg="black", font="Times 15  bold",padx=195,pady=1).pack()

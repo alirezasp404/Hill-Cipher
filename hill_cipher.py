@@ -25,7 +25,8 @@ def generate_key(text):
         raise ValueError("Key must be invertible")
     return key
 
-def encrypt(text, key):
+def encrypt(text, key_text):
+    text,key=initialize(text,key_text)
     if not text.isalpha():
         raise ValueError("Input must contain only alphabetic characters (A-Z or a-z)")
     encrypted_text = ""
@@ -81,7 +82,8 @@ def validate_decryption_input(text):
         if not char.isalpha() and char != '@':
             raise ValueError(f"Invalid character '{char}' found. Only alphabetic characters and '@' are allowed.")
         
-def decrypt(text,key):
+def decrypt(text,key_text):
+    text,key=initialize(text,key_text)
     invert_key= generate_invert_key(key)
     validate_decryption_input(text)
     decrypted_text = ""
@@ -99,4 +101,9 @@ def decrypt(text,key):
     decrypted_text=decrypted_text.replace("@", "")
 
     return decrypted_text
-    
+
+def initialize(text,key_text):
+    text=text.upper().replace(" ", "")
+    key = generate_key(key_text)
+    return text,key
+

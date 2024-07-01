@@ -36,14 +36,3 @@ def determinant(matrix):
             det += sign * matrix[i][index] * sub_det
 
     return det
-
-matrix = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 8]
-]
-
-result = determinant(matrix)
-print(f"The determinant calculated using Laplace expansion is: {result}")
-
-# Note: We can't use numpy's linalg.det function here, so we'll omit that comparison
