@@ -100,12 +100,3 @@ def decrypt(text,key):
 
     return decrypted_text
     
-key_text = input("Enter the text to generate the key: ")
-key = generate_key(key_text)
-if key is not None :
-    text = input("Enter the text to encrypt: ").upper().replace(" ", "")
-    encrypted_text = encrypt(text, key)
-    print("Encrypted text: ", encrypted_text)
-    text = input("Enter the text to decrypt: ").upper().replace(" ", "")
-    decrypted_text = decrypt(text, key)
-    print("Decrypted text: ", decrypted_text)

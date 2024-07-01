@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
+import hill_cipher  
+
 window = tk.Tk()
 
 def encrypt_decrypt():
@@ -9,20 +11,21 @@ def encrypt_decrypt():
 
     if mode == "Encryption":
 
-        if key=="" and text=="":
+        if key=="" or text=="":
             messagebox.showinfo("error", "enter text and key")
         else:
+            print(text , key)
             tk.Label(window, text="", fg="white",pady=1).pack()
             tk.Label(window, text="decription text:",  fg="black", font="Times 15  bold",padx=20,pady=1).pack()
-            tk.Label(window, text="decription text:",  fg="black", font="Times 15  bold",padx=195,pady=1).pack()
+            tk.Label(window, text=hill_cipher.encrypt(text,key),  fg="black", font="Times 15  bold",padx=195,pady=1).pack()
             submit_button.destroy()
     else:
-        if key and text:
+        if key=="" or text=="":
             messagebox.showinfo("error", "enter text and key")
         else:
             tk.Label(window, text="", fg="white",pady=1).pack()
             tk.Label(window, text="decription text:",  fg="black", font="Times 15  bold",padx=195,pady=5).pack()
-            tk.Label(window, text="decription text:",  fg="black", font="Times 15  bold",padx=195,pady=5).pack()
+            tk.Label(window, text=hill_cipher.decrypt(text,key),  fg="black", font="Times 15  bold",padx=195,pady=5).pack()
             submit_button.destroy()
 
 
