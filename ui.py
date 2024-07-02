@@ -3,13 +3,11 @@ from tkinter import messagebox
 import hill_cipher  
 
 window = tk.Tk()
-answer_lable=None
 
 def encrypt_decrypt():
     key = key_entry.get()
     text = text_entry.get("1.0", "end-1c")
     mode = mode_var.get()
-    global answer_lable
     if mode == "Encryption":
         if key=="" or text=="":
             messagebox.showinfo("error", "enter text and key")
