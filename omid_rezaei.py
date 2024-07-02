@@ -1,4 +1,3 @@
-import numpy as np
 def delete_11(matrix):
     A=matrix
     A = A[1:]
