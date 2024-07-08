@@ -244,3 +244,11 @@ def initialize(text,key_text):
     key = generate_key(key_text)
     return text,key
 
+key_inp=input("pleaes enter the key:")
+text_inp=input("pleaes enter the text:")
+choice=input("1.encryot\n2.decrypt:\n")
+if choice=="1":
+    print(f"encrypt text is: {encrypt(text_inp,key_inp)}")
+
+elif choice=="2":
+        print(f"decrypt text is: {decrypt(text_inp,key_inp)}")
